@@ -33,8 +33,7 @@
 
 
 ;; Spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
+(setq-default tab-width 4 indent-tabs-mode nil)
 
 ;; Theme stuff
 (load-theme 'mustard t)
@@ -52,6 +51,8 @@
 (projectile-global-mode t)
 (rainbow-delimiters-mode t)
 (global-linum-mode t)
+(global-evil-surround-mode t)
+(global-auto-complete-mode t)
 
 
 ;; Smart-mode-line
