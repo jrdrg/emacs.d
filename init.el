@@ -54,6 +54,7 @@
 (global-evil-surround-mode t)
 (global-auto-complete-mode t)
 
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; Smart-mode-line
 (sml/setup)
