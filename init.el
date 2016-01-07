@@ -17,8 +17,8 @@
 
 (set-keyboard-coding-system nil)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-			 ("marmalade" . "https://marmalade-repo.org/packages/")
-			 ("melpa" . "https://melpa.org/packages/")))
+                         ("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
 
 
 (package-initialize)
@@ -58,7 +58,6 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; Smart-mode-line
 (sml/setup)
