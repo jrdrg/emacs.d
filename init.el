@@ -49,10 +49,14 @@
 
 (ido-vertical-mode t)
 (projectile-global-mode t)
-(rainbow-delimiters-mode t)
 (global-linum-mode t)
 (global-evil-surround-mode t)
 (global-auto-complete-mode t)
+(global-flycheck-mode t)
+
+;; Use rainbow-delimiters-mode and rainbow-identifiers-mode for all programming modes
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
@@ -62,7 +66,19 @@
 
 ;; File associations
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 
+
+;; Flycheck
+(setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                      '(javascript-jshint)))
+(setq-default flycheck-disabled-checkers
+              (append flycheck-disabled-checkers
+                      '(javascript-jscs)))
+
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+(flycheck-add-mode 'javascript-eslint 'js2-mode)
 
 ;; Disable backup files
 (setq make-backup-files nil)
@@ -100,4 +116,14 @@
 
 (key-chord-mode t)
 (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+(key-chord-define evil-normal-state-map "ff" 'helm-find-files)
+(key-chord-define evil-normal-state-map "ri" 'rainbow-identifiers-mode)
+(key-chord-define evil-normal-state-map "rd" 'rainbow-delimiters-mode)
+(key-chord-define evil-normal-state-map "gs" 'magit-status)
+(key-chord-define evil-normal-state-map "gb" 'magit-blame)
+
+
+;; Machine-specific configs, etc
+(require 'init-loader)
+(init-loader-load)
 
