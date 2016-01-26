@@ -6,7 +6,9 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "405b0ac2ac4667c5dab77b36e3dd87a603ea4717914e30fcf334983f79cfd87e" default))))
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "405b0ac2ac4667c5dab77b36e3dd87a603ea4717914e30fcf334983f79cfd87e" default)))
+ '(js2-global-externs (quote ("describe" "it" "spyOn" "beforeEach" "expect")))
+ '(js2-include-node-externs t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -53,10 +55,30 @@
 (global-evil-surround-mode t)
 (global-auto-complete-mode t)
 (global-flycheck-mode t)
+(global-color-identifiers-mode)
+
 
 ;; Use rainbow-delimiters-mode and rainbow-identifiers-mode for all programming modes
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
+;;(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
+
+
+;; Remove trailing whitespace before saving a file
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+;; Enable copy/paste to OS X clipboard
+(defun copy-from-osx ()
+  (shell-command-to-string "pbpaste"))
+
+(defun paste-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+
+(setq interprogram-cut-function 'paste-to-osx)
+(setq interprogram-paste-function 'copy-from-osx)
 
 
 ;; Smart-mode-line
@@ -64,6 +86,7 @@
 
 
 ;; File associations
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 
@@ -88,13 +111,29 @@
 (show-paren-mode 1)
 
 
+;; Tern.js support
+(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
+
+(defun delete-tern-process ()
+  (interactive)
+  (delete-process "Tern"))
+
+
+;; Better UI for showing functions in JS files
+(js2-imenu-extras-mode)
+
+
+
 ;; Clojurescript figwheel REPL
 (defun figwheel-repl ()
   (interactive)
   (run-clojure "lein figwheel"))
 
 (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
-
 
 ;; Evil-mode
 (require 'evil-leader)
@@ -111,7 +150,18 @@
   "b" 'helm-buffers-list
   "g" 'helm-do-grep
   "k" 'kill-buffer
-  "o" 'other-window)
+  "o" 'other-window
+
+  "ci" 'evilnc-comment-or-uncomment-lines
+  "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "cc" 'evilnc-copy-and-comment-lines
+  "cp" 'evilnc-comment-or-uncomment-paragraphs
+  "cr" 'comment-or-uncomment-region
+  "cv" 'evilnc-toggle-invert-comment-line-by-line
+  "\\" 'evilnc-comment-operator ; if you prefer backslash key
+  )
+
 
 (key-chord-mode t)
 (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
@@ -120,9 +170,9 @@
 (key-chord-define evil-normal-state-map "rd" 'rainbow-delimiters-mode)
 (key-chord-define evil-normal-state-map "gs" 'magit-status)
 (key-chord-define evil-normal-state-map "gb" 'magit-blame)
-
+(key-chord-define evil-normal-state-map "bq" 'magit-blame-quit)
+(key-chord-define evil-normal-state-map "fn" 'helm-imenu)
 
 ;; Machine-specific configs, etc
 (require 'init-loader)
 (init-loader-load)
-
