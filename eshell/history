@@ -1,0 +1,40 @@
+ls
+ls -la
+exit
+ls
+ls -la
+exit
+ls
+ls -la
+exit
+ls
+ls -la
+exit
+ls
+ls -la
+git status
+ls
+ls
+adminv2_tests.xml  babelhook.js  copy          jasmine-config.json  newrelic_agent.log  package.json  src     
+ls
+clear
+ls
+node app
+exit
+ls
+exit
+exit
+exit
+ls
+cd ~
+ls -la
+ls -la .*
+ls -la
+drwxr-xr-x   3 john           staff      ls102 2016-01-27 13:44 babel-plugin-transform-do-expressions
+ls
+ls -l
+ls -la .
+ls .dotfiles/
+cat .dotfiles/symlink.sh 
+ls .dotfiles/.emacs 
+cat .bash_prompt
