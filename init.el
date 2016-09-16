@@ -95,7 +95,7 @@
 
 
 ;; File associations
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
 
@@ -140,6 +140,10 @@
 (defun delete-tern-process ()
   (interactive)
   (delete-process "Tern"))
+
+;; disable evil-mode keys in magit
+(eval-after-load 'evil-core
+  '(evil-set-initial-state 'magit-popup-mode 'emacs))
 
 
 ;; Better UI for showing functions in JS files
