@@ -16,7 +16,7 @@
  '(js2-include-node-externs t)
  '(package-selected-packages
    (quote
-    (elm-mode yafolding flow-minor-mode xterm-color web-mode tern-auto-complete tabbar swiper smex smart-mode-line-powerline-theme rainbow-identifiers rainbow-delimiters project-explorer powerline-evil php-mode peacock-theme mustard-theme magit lush-theme labburn-theme key-chord jsx-mode json-mode js-doc jbeans-theme init-loader inf-clojure ido-vertical-mode highlight-parentheses helm-projectile helm-flycheck flycheck-flow find-file-in-project exec-path-from-shell evil-tabs evil-surround evil-nerd-commenter evil-leader cyberpunk-theme coverlay company-tern company-flow color-identifiers-mode clojurescript-mode clj-refactor ac-js2 ac-cider abyss-theme)))
+    (prettier-js elm-mode yafolding flow-minor-mode xterm-color web-mode tern-auto-complete tabbar swiper smex smart-mode-line-powerline-theme rainbow-identifiers rainbow-delimiters project-explorer powerline-evil php-mode peacock-theme mustard-theme magit lush-theme labburn-theme key-chord jsx-mode json-mode js-doc jbeans-theme init-loader inf-clojure ido-vertical-mode highlight-parentheses helm-projectile helm-flycheck flycheck-flow find-file-in-project exec-path-from-shell evil-tabs evil-surround evil-nerd-commenter evil-leader cyberpunk-theme coverlay company-tern company-flow color-identifiers-mode clojurescript-mode clj-refactor ac-js2 ac-cider abyss-theme)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 
@@ -239,6 +239,23 @@
 (key-chord-define evil-normal-state-map "ft" 'flow-minor-type-at-pos)
 (key-chord-define evil-normal-state-map "tt" 'yafolding-toggle-all)
 (key-chord-define evil-normal-state-map "tf" 'yafolding-toggle-element)
+
+
+;; Prettier
+(require 'prettier-js)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+
+(defun enable-minor-mode (my-pair)
+  "Enable minor mode if filename match the regexp.  MY-PAIR is a cons cell (regexp . minor-mode)."
+  (if (buffer-file-name)
+      (if (string-match (car my-pair) buffer-file-name)
+      (funcall (cdr my-pair)))))
+
+(add-hook 'web-mode-hook #'(lambda ()
+                            (enable-minor-mode
+                             '("\\.jsx?\\'" . prettier-js-mode))))
+
+ '(prettier-js-mode t)
 
 ;; Machine-specific configs, etc
 (require 'init-loader)
