@@ -16,7 +16,7 @@
  '(js2-include-node-externs t)
  '(package-selected-packages
    (quote
-    (prettier-js elm-mode yafolding flow-minor-mode xterm-color web-mode tern-auto-complete tabbar swiper smex smart-mode-line-powerline-theme rainbow-identifiers rainbow-delimiters project-explorer powerline-evil php-mode peacock-theme mustard-theme magit lush-theme labburn-theme key-chord jsx-mode json-mode js-doc jbeans-theme init-loader inf-clojure ido-vertical-mode highlight-parentheses helm-projectile helm-flycheck flycheck-flow find-file-in-project exec-path-from-shell evil-tabs evil-surround evil-nerd-commenter evil-leader cyberpunk-theme coverlay company-tern company-flow color-identifiers-mode clojurescript-mode clj-refactor ac-js2 ac-cider abyss-theme)))
+    (reason-mode prettier-js elm-mode yafolding flow-minor-mode xterm-color web-mode tern-auto-complete tabbar swiper smex smart-mode-line-powerline-theme rainbow-identifiers rainbow-delimiters project-explorer powerline-evil php-mode peacock-theme mustard-theme magit lush-theme labburn-theme key-chord jsx-mode json-mode js-doc jbeans-theme init-loader inf-clojure ido-vertical-mode highlight-parentheses helm-projectile helm-flycheck flycheck-flow find-file-in-project exec-path-from-shell evil-tabs evil-surround evil-nerd-commenter evil-leader cyberpunk-theme coverlay company-tern company-flow color-identifiers-mode clojurescript-mode clj-refactor ac-js2 ac-cider abyss-theme)))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 
